@@ -1,0 +1,12 @@
+{
+  "active": true,
+  "address": "Testgatan 1",
+  "city": "Göteborg",
+  "countyCode": "14",
+  "firstName": "Test",
+  "lastName": "Testsson",
+  "municipalityCode": "80",
+  "name": "Test Testsson",
+  "phone": "+46700000000",
+  "zip": "41101"
+}

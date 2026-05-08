@@ -1,0 +1,53 @@
+[
+  {
+    "id": 100000001,
+    "threadTitle": "Provsvar tillgängligt",
+    "threadLabel": "Nytt meddelande",
+    "facilityName": "Demo Vårdcentral, Göteborg",
+    "messageDate": "2026-04-22T08:42:11.001Z",
+    "readStatus": "UNREAD",
+    "favorite": true,
+    "messageUrl": "https://arende.1177.se/inkorg/10000001",
+    "title": null,
+    "messageText": null,
+    "facilityHsaId": "SE0000000000-DEMO",
+    "hasAttachment": true,
+    "actionLinks": null,
+    "messagesInThread": 1,
+    "hasCustomServiceLink": false
+  },
+  {
+    "id": 100000002,
+    "threadTitle": "Tidbokning",
+    "threadLabel": "Information",
+    "facilityName": "Demo Folktandvården, Göteborg",
+    "messageDate": "2026-02-14T09:15:00.000Z",
+    "readStatus": "READ",
+    "favorite": false,
+    "messageUrl": "https://arende.1177.se/inkorg/10000002",
+    "title": null,
+    "messageText": null,
+    "facilityHsaId": null,
+    "hasAttachment": false,
+    "actionLinks": null,
+    "messagesInThread": 1,
+    "hasCustomServiceLink": false
+  },
+  {
+    "id": 100000003,
+    "threadTitle": "Receptförnyelse — bekräftelse",
+    "threadLabel": "Ärendet avslutat",
+    "facilityName": "Demo Vårdcentral, Göteborg",
+    "messageDate": "2025-11-30T14:00:00.000Z",
+    "readStatus": "READ",
+    "favorite": false,
+    "messageUrl": "https://arende.1177.se/inkorg/10000003",
+    "title": null,
+    "messageText": null,
+    "facilityHsaId": "SE0000000000-DEMO",
+    "hasAttachment": false,
+    "actionLinks": null,
+    "messagesInThread": 2,
+    "hasCustomServiceLink": false
+  }
+]

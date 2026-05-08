@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@0.0.75",
+        "--output-dir",
+        "/Users/rickardotvos/Documents/Study/hl7-hackathon-2026/.claude/screenshots"
+      ]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "vitalis-fhir-1177",
+  "private": true,
+  "description": "Vitalis Hackathon 2026 — FHIR R4 facade over 1177.se with agentic chat",
+  "scripts": {
+    "dev": "concurrently --kill-others-on-fail --names 'java,agent,vite' --prefix-colors 'cyan,magenta,green' --prefix '[{name}]' 'npm:dev:java' 'npm:dev:agent' 'npm:dev:vite'",
+    "dev:java": "cd fhir-proxy && mvn spring-boot:run",
+    "dev:agent": "cd agent && npm run dev",
+    "dev:vite": "cd fhir-proxy/ui && npm run dev",
+    "prod": "cd fhir-proxy && mvn -DskipTests package && concurrently --kill-others-on-fail --names 'java,agent' 'java -jar target/fhir-proxy-1177.jar' 'cd ../agent && npm run start'",
+    "eval": "cd agent && npm run eval",
+    "install:all": "cd fhir-proxy/ui && npm install && cd ../../agent && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

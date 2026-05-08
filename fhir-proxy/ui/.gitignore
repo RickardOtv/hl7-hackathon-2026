@@ -1,0 +1,9 @@
+node_modules/
+dist/
+
+# Vite cache + TS incremental build cache
+.vite/
+*.tsbuildinfo
+
+# Local-only env overrides (Vite picks up *.local automatically)
+*.local
