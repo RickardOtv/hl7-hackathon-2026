@@ -8,23 +8,6 @@ Mastra agent and a side-by-side viewer GUI.
 > Project name: **Brasa** (Swedish for *bonfire*) — FHIR sounds like *fire*,
 > and the dark/orange palette nods to Claude's flame.
 
-## What's in this repo
-
-| Path | What |
-|---|---|
-| `fhir-proxy/` | Java 17 + Spring Boot + HAPI FHIR R4 facade. Builds `target/fhir-proxy-1177.jar`. |
-| `fhir-proxy/ui/` | Vite + React side-by-side viewer (raw 1177 JSON ↔ FHIR R4 output). Bundled into the jar via `mvn package`. |
-| `agent/` | Mastra (TypeScript) agent that talks FHIR to the proxy. Has eval harness. |
-| `scripts/sanitize-har.mjs` | Sanitizer (`raw → clean`). |
-| `scripts/make-demo-har.mjs` | Demo synthesizer (`clean → demo`). |
-| `data/raw/` | Captures with real PII. **gitignored**, never share. |
-| `data/clean/` | `1177-clean.har` (sanitized) + `1177-demo.har` (synthetic Test Testsson). |
-| `data/examples/` | Alternate "Anna Andersson" identity — used for the GUI's drag-and-drop demo of `POST /transform/Patient`. Drop one of these JSON files onto the input panel to re-run the mappers against a different identity. |
-| `data/fhir/` | Snapshots of converted FHIR resources (output destination). |
-| `doc/finding.md` | Endpoint inventory + 1177→FHIR R4 mapping tables. |
-| `doc/DEMO.md` | 5-minute presentation runbook. |
-| `package.json` | Root orchestrator — `npm run dev` runs proxy + agent + Vite together. |
-
 ## How it works
 
 ```
@@ -83,11 +66,10 @@ PROXY_MODE=live PROXY_COOKIE='<raw Cookie header from a logged-in 1177 session>'
   java -jar fhir-proxy/target/fhir-proxy-1177.jar
 ```
 
-Validation tests + agent evals:
+Validation tests:
 
 ```bash
 cd fhir-proxy && mvn test     # HAPI R4 instance validator on every mapper output
-npm run eval                  # Mastra agent evals
 ```
 
 ## End-to-end pipeline
@@ -101,45 +83,6 @@ npm run eval                  # Mastra agent evals
 7. **Validate** — `cd fhir-proxy && mvn test`.
 8. **Snapshot output** — e.g. `curl -s http://localhost:8181/fhir/Patient/current-user > data/fhir/Patient-current-user.json`.
 9. **Demo it** — follow `doc/DEMO.md`.
-
-## Hackathon task status
-
-| Task | Status | Where |
-|---|---|---|
-| 1. Explore — capture + sanitize HAR | ✅ done | `data/clean/1177-clean.har` |
-| 2. Map endpoints to FHIR resources | ✅ done | `doc/finding.md` |
-| 3. Build proxy (Patient, Appointment, Communication) | ✅ done | `fhir-proxy/` |
-| 4. Validate FHIR output | ✅ done | `fhir-proxy/src/test/java/.../FhirValidationTest.java` |
-| 5. README | ✅ done | this file + `fhir-proxy/README.md` |
-| 6. Demo runbook + synthetic HAR | ✅ done | `doc/DEMO.md` + `data/clean/1177-demo.har` |
-| 7. GUI (raw ↔ FHIR side-by-side) | ✅ done | bundled at `http://localhost:8181/` |
-| 8. Agentic client + evals | ✅ done | `agent/` |
-
-## Sanitization hygiene
-
-Before re-running the sanitizer with new captures, update the `KNOWN_PII` env
-var with your real-name fragments (e.g. `Firstname,Lastname,Lastname-without-diacritics`).
-The script also catches:
-
-- Personnummer regex `\b(19|20)?\d{6}[-+]?\d{4}\b`
-- Email regex
-- Swedish phone regex
-- All cookie values (`Cookie`, `Set-Cookie`)
-- `Authorization`, `X-Auth-Token`, `X-Csrf-Token`
-- Bearer tokens, JWTs (`eyJ…`)
-- All UUIDs (replaced with zeros)
-- Well-known PII JSON keys: `firstName`, `lastName`, `personId`, `personName`,
-  `email`, `phone`, `address`, `city`, `zip`, `dateOfBirth`, etc.
-
-Verify with grep before sharing:
-
-```bash
-grep -ciE 'firstname|lastname' data/clean/1177-clean.har                   # should be 0
-grep -coE '\b(19|20)?[0-9]{6}[-+]?[0-9]{4}\b' data/clean/1177-clean.har    # should be 0
-```
-
-`data/raw/` is gitignored — `*.raw.har` anywhere in the tree is also blocked
-as defence-in-depth.
 
 ## Reproducing the capture
 
